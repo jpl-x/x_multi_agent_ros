@@ -17,7 +17,7 @@ about [x_vio_ros](https://github.com/jpl-x/x/wiki/xvio-ros).
 
 ### Requirements
 
-- Install the [x library](https://github.com/jpl-x/x)
+- Install the [x library](https://github.com/jpl-x/x_multi_agent)
 - ROS [Noetic](http://wiki.ros.org/noetic)
 
 ### Build
