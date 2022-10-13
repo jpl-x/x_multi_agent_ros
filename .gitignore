@@ -1,0 +1,17 @@
+# Temporary/backup files
+*~
+*.sw*
+
+# Doxygen output
+doc
+
+# Compile flag database for YouCompleteMe
+*.json
+
+# Formatting
+.clang-format
+
+.vscode
+
+.idea
+cmake-*

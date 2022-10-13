@@ -1,0 +1,8 @@
+<launch>
+
+  <!-- Launch multi x with 1 UAV-->
+  <include file="$(find x_vio_ros)/launch/vio_multi.launch">
+    <arg name="nr" value="1"/>
+  </include>
+
+</launch>

@@ -1,0 +1,255 @@
+###########################
+# Initial state estimates #
+###########################
+ 
+# # Thermal Mars Yard
+# starting from 21.0
+ 
+ 
+# Thermal dataset 2019-02-07-22.bag
+# p:    [0.0734184533358, 0.165730074048, 1.76847779751] # [x,y,z]
+# v:    [-0.17585631, -0.02332516, -0.03579743] # [x,y,z]
+# q:    [0.99982566352, -0.00165987122822, 0.00394223585083, 0.0181752383644] # [w,x,y,z]
+ 
+# same dataset but -s 8.0
+# p:    [0.0050586070865388634, -1.1379915475845337, 1.2442547082901] # [x,y,z]
+# v:    [0.25430414, -0.00556579,  0.01211563] # [x,y,z]
+# q:    [0.7057932003194942, -0.01337602940806912, 0.02213594630640657, 0.7079456199519741] # [w,x,y,z]
+ 
+# start at 23.0 mars_yard_duo_tf.bag
+# p:    [0.20111349225044228, -0.05243177339434628, 1.7537038326263428] # [x,y,z]
+# v:    [0.01835578, -0.02295038, -0.10403917] # [x,y,z]
+# q:    [-0.7075601032225535, 0.008718189542678395, -0.028073730643334474, -0.7060415712038604] # [w,x,y,z]
+
+
+# start at 0.0 mars_yard_duo_tf.bag
+p:    [0.4420640170574186, 0.10565657168626776, 1.7120877504348755]
+v:    [ 0.04492134,  0.11195792, -0.01516127]
+q:    [-0.997574263166533, -0.03675918262143196, 0.02183407740648154, -0.05493268506255283]
+
+
+# # Thermal Mars...
+# starting from 0
+# p:    [ 0.242560297251, -0.00636227615178, 1.38774478436] # [x,y,z]
+# v:    [0.0115386620164, -0.0166191160679, -0.121322162449] # [x,y,z]
+# q:    [0.709417046529, -0.0168109190303 ,0.020556795595 ,0.704288562026] # [w,x,y,z]
+ 
+# p:    [0.344585329294, -0.111417494714, 1.52889299393] # [x,y,z]
+# v:    [-0.003511012, -0.03781423, -0.019490719] # [x,y,z]
+# q:    [-0.955019770337, -0.00889921947666, 0.0199143022862, 0.295738956911] # [w,x,y,z]
+ 
+# Initial IMU bias estimates
+b_w: [0.0, 0.0, 0.0] # [x,y,z]
+b_a: [0.0, 0.0, 0.0] # [x,y,z]
+ 
+# Initial standard deviation estimates [x,y,z]
+sigma_dp: [0.0, 0.0, 0.0] # [m]
+sigma_dv: [0.05, 0.05, 0.05] # [m/s]
+sigma_dtheta: [3.0, 3.0, 3.0] # [deg]
+sigma_dbw: [6.0, 6.0, 6.0] # [deg/s]
+sigma_dba: [0.3, 0.3, 0.3] # [m/s^2]
+ 
+###############
+# Calibration #
+###############
+ 
+# Camera calibration for myBags/20160426 bags
+cam1_fx: 0.577085453947302
+cam1_fy: 0.721472436786731
+cam1_cx: 0.516956707113531
+cam1_cy: 0.504461764661648
+cam1_s: 1.030435318352822
+cam1_img_width: 640
+cam1_img_height: 512
+cam1_q_ic: [
+   -0.023109996805684,
+   -0.014512491894295,
+   0.999625192259579,
+   -0.002188712846516,
+ ] # [w,x,y,z]
+cam1_p_ic: [0.10504305, 0.00284928, -0.059877417] # [x,y,z]
+cam1_time_offset: -0.03281367231868547 # -0.00397400522578
+ 
+cam2_fx: 0.46513
+cam2_fy: 0.726246
+cam2_cx: 0.499822
+cam2_cy: 0.458086
+cam2_s: 0.950711
+cam2_img_width: 752
+cam2_img_height: 480
+cam2_q_ic: [
+   -0.004059133072894,
+   0.928890463133302,
+   0.370065735566358,
+   -0.014049352983967,
+ ] # [w,x,y,z]
+cam2_p_ic: [-0.05914814, 0.04309647, -0.03085167] # [x,y,z]
+cam2_time_offset: -0.00397400522578
+ 
+# Feature noise (normalized coordinate standard deviation)
+# 8.75/(cam_1fx)/cam1_img_width
+sigma_img: 0.02541924711215672 # 0.02541924711215672 # 0.0953919039528471619 # 0.02541924711215672 # 0.153919039528471619 # sqrt(0.00012922762474977756 * 5.0)
+ 
+#######
+# IMU #
+#######
+ 
+# MXR9500G/M accels (Astec)
+n_a: 0.083 # Accel noise spectral density [m/s^2/sqrt(Hz)]
+n_ba: 0.0083 # Accel bias random walk [m/s^3/sqrt(Hz)]
+# ADXRS610 gyros (Astec)
+n_w: 0.013 # Gyro noise spectral density [rad/s/sqrt(Hz)]
+n_bw: 0.0013 # Gyro bias random walk [rad/s^2/sqrt(Hz)]
+ 
+#######
+# LRF #
+#######
+ 
+# Noise (standard deviation in m)
+sigma_range: 0.05
+ 
+##############
+# Sun Sensor #
+##############
+ 
+# Currently unused
+q_sc: [1.0, 0.0, 0.0, 0.0] # [w,x,y,z]
+w_s: [0.0, 0.0, 1.0] # [x,y,z]
+ 
+ 
+########################
+# MULTI UAV PARAMETERS #
+########################
+pr_desc_ratio_thr: 0.80
+pr_desc_min_distance: 50.0
+desc_type: 0 # DESCRIPTOR_TYPE { ORB=0, SIFT, SURF };
+ 
+# BoW ORB vocabulary
+vocabulary_path: '/home/viciopoli/JPL/devel/x_ws/src/x/Vocabulary/thermal_voc_3_4_dbow3_calib.yaml'
+
+sigma_landmark: 0.02 # meters
+ 
+descriptor_scale_factor: 1.2
+descriptor_pyramid: 8
+descriptor_patch_size: 41
+pr_score_thr: 0.55 # 0.675
+ 
+ci_msckf_w: 0.0001 # for calibrated # 0.01 # for uncalibrated # Covariance intersection weights. if < 0 it's going to perform the optimization problem.
+ci_slam_w: 0.0001 # for calibrated # 0.1 # for uncalibrated # Covariance intersection weights. if < 0 it's going to perform the optimization problem.
+
+###################################
+# Thermal photometric calibration #
+###################################
+# These paramters are needed only if `PHOTOMETRIC_CALI` is set to `true` in the `CMakeLists.txt` file
+ 
+# window size to compute the intensity value changes to track over time
+temporal_params_div: 32
+# true -> compute the spatial parameters
+spatial_params: True
+# the features must cover the spatial_params_thr percentage of
+# the image to compute the params
+spatial_params_thr: 0.9
+ 
+epsilon_gap: 0.5
+epsilon_base: 0.4
+ 
+##############################
+# Tracker PHOTOMETRIC IMAGES #
+##############################
+
+win_size_w_photo: 3 # 15
+win_size_h_photo: 3 # 15
+max_level_photo: 2
+min_eig_thr_photo: 0.003  # 0.001
+fast_detection_delta_photo: 20 # 30
+
+###########
+# Tracker #
+###########
+ 
+#0-based maximal pyramid level number; if set to 0, pyramids are not used (single level),
+# if set to 1, two levels are used, and so on; if pyramids are passed to input then
+# algorithm will use as many levels as pyramids have but no more than maxLevel.
+max_level: 2
+ 
+# The algorithm calculates the minimum eigen value of a 2x2 normal matrix of optical
+# flow equations (this matrix is called a spatial gradient matrix in [25]), divided
+# by number of pixels in a window; if this value is less than minEigThreshold, then
+# a corresponding feature is filtered out and its flow is not processed, so it allows
+# to remove bad points and get a performance boost.
+min_eig_thr: 0.003
+ 
+# Size of the search window at each pyramid level.
+win_size_w: 7
+win_size_h: 7
+ 
+# the intensity difference threshold for the FAST feature detector
+fast_detection_delta: 20
+non_max_supp: True
+# the blocked region for other features to occupy will be of size (2 * block_half_length_ + 1)^2 [px]
+block_half_length: 20
+# the margin from the edge of the image within which all detected features must fall into
+margin: 40
+# min number of feature, triggers the feature research
+n_feat_min: 400
+# RANSAC: 8 / LMEDS: 4 (see OpenCV doc)
+outlier_method: 8
+# Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels,
+# beyond which the point is considered an outlier and is not used for computing the final fundamental
+# matrix. It can be set to something like 1-3, depending on the accuracy of the point localization,
+# image resolution, and the image noise.
+outlier_param1: 1.0
+# Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence
+# (probability) that the estimated matrix is correct.
+outlier_param2: 0.999 #0.99
+# 1 <=> no tiling
+n_tiles_h: 3
+n_tiles_w: 3
+max_feat_per_tile: 10000
+ 
+##############
+# SLAM-MSCKF #
+##############
+ 
+# Number of poses in the sliding window
+n_poses_max: 15
+ 
+# Number of SLAM features
+n_slam_features_max: 15
+ 
+ 
+# Initial inverse depth of SLAM features [1/m]
+# (default: 1 / (2 * d_min) [Montiel, 2006])
+rho_0: 0.60 # 43
+ 
+# Initial standard deviation of SLAM inverse depth [1/m]
+# (default: 1 / (4 * d_min) [Montiel, 2006])
+sigma_rho_0: 0.3 # 215
+ 
+# Number of IEKF iterations (1 <=> EKF)
+iekf_iter: 1
+ 
+# Minimum baseline to trigger MSCKF measurement (pixels)
+msckf_baseline: 300.0
+ 
+# Minimum track length for a visual feature to be processed
+min_track_length: 15
+ 
+########
+# Misc #
+########
+ 
+# Gravity vector in world frame [m/s^2]
+g: [0.0, 0.0, -9.81] # [x,y,z]
+
+# state buffer size
+state_buffer_size: 250
+
+# Timeout before 3D trajectory disappears in GUI (s)
+traj_timeout_gui: 60
+ 
+# flags to play rosbags
+/use_sim_time: True
+ 
+# Initialize at startup
+init_at_startup: True

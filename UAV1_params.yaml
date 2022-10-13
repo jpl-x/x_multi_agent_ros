@@ -1,0 +1,197 @@
+###########################
+# Initial state estimates #
+###########################
+
+#  Calascio ruin UAV 1 starting pose
+# p:    [0.0996536944321, 0.650105327481, 0.485353333074] # [x,y,z]
+# v:    [0.013064551, -0.677197571, 0.510333198] # [x,y,z]
+# q:    [0.999476479566, -0.02852409305, 0.0150073484925, -0.00281467611065] # [w,x,y,z]
+
+# INVERARAY PARALLEL
+# p:    [-11.0238324478,5.87781035059,4.97533455791] # [x,y,z]
+# v:    [-0.91143948, 0.2073374, -0.136389114] # [x,y,z]
+# q:    [0.998285779503,0.0242414304708,0.0528674363413,0.00654902012466] # [w,x,y,z]
+
+# INVERARAY AROUND
+p:    [-41.1312907116, -0.00688860865911, 1.10769421553] # [x,y,z]
+v:    [-0.74676504,  0.02250653, -0.15494689] # [x,y,z]
+q:    [0.999642286845, 0.00442585804707, 0.0261189530978, -0.00367565232272] # [w,x,y,z]
+
+# Mars sol 180
+# p: [-1.30295832,  0.5750514,   0.78614989]
+# v: [-0.5741264 , -0.4824844,   0.09578103]
+# q: [0.999397457339, -0.014541623862, 0.014590109983, 0.0279354994628]
+
+# Initial IMU bias estimates
+b_w: [0.0, 0.0, 0.0] # [x,y,z]
+b_a: [0.0, 0.0, 0.0] # [x,y,z]
+
+# Initial standard deviation estimates [x,y,z]
+sigma_dp: [0.0, 0.0, 0.0] # [m]
+sigma_dv: [0.05, 0.05, 0.05] # [m/s]
+sigma_dtheta: [3.0, 3.0, 3.0] # [deg]
+sigma_dbw: [6.0, 6.0, 6.0] # [deg/s]
+sigma_dba: [0.3, 0.3, 0.3] # [m/s^2]
+
+###############
+# Calibration #
+###############
+
+# VI Simulator
+
+cam1_fx: 0.605053191
+cam1_fy: 0.947916667
+cam1_cx: 0.5000
+cam1_cy: 0.5000
+cam1_s:  0.0
+cam1_img_width: 752
+cam1_img_height: 480
+cam1_q_ic: [0.004059133072894, -0.928890463133302, -0.370065735566358, 0.014049352983967] # [w,x,y,z]
+cam1_p_ic: [0.05914814,  -0.04309647, 0.03085167] # [x,y,z]
+cam1_time_offset: -0.000000001
+
+# Feature noise (normalized coordinate standard deviation)
+# 8.75/(cam_1fx)/cam1_img_width
+sigma_img: 0.011307696 # sqrt(0.00012922762474977756 * 5.0)
+
+#######
+# IMU #
+#######
+
+# ADIS16448 accels (Astec)
+n_a:  0.004 # Accel noise spectral density [m/s^2/sqrt(Hz)]
+n_ba: 0.006 # Accel bias random walk [m/s^3/sqrt(Hz)]
+# ADIS16448 gyros (Astec)
+n_w:  0.0003394   # Gyro noise spectral density [rad/s/sqrt(Hz)]
+n_bw: 0.000038785 # Gyro bias random walk [rad/s^2/sqrt(Hz)]
+
+#######
+# LRF #
+#######
+
+# Noise (standard deviation in m)
+sigma_range: 0.05
+
+##############
+# Sun Sensor #
+##############
+
+# Currently unused
+q_sc: [1.0, 0.0, 0.0, 0.0] # [w,x,y,z]
+w_s: [0.0, 0.0, 1.0] # [x,y,z]
+
+###########
+# Tracker #
+###########
+
+#0-based maximal pyramid level number; if set to 0, pyramids are not used (single level),
+# if set to 1, two levels are used, and so on; if pyramids are passed to input then
+# algorithm will use as many levels as pyramids have but no more than maxLevel.
+max_level: 2
+
+# The algorithm calculates the minimum eigen value of a 2x2 normal matrix of optical
+# flow equations (this matrix is called a spatial gradient matrix in [25]), divided
+# by number of pixels in a window; if this value is less than minEigThreshold, then
+# a corresponding feature is filtered out and its flow is not processed, so it allows
+# to remove bad points and get a performance boost.
+min_eig_thr: 0.0
+
+# Size of the search window at each pyramid level.
+win_size_w: 31
+win_size_h: 31
+
+fast_detection_delta: 20
+non_max_supp: True
+block_half_length: 20
+margin: 20
+n_feat_min: 400
+# RANSAC: 8 / LMEDS: 4 (see OpenCV doc)
+outlier_method: 8
+# Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels,
+# beyond which the point is considered an outlier and is not used for computing the final fundamental
+# matrix. It can be set to something like 1-3, depending on the accuracy of the point localization,
+# image resolution, and the image noise.
+outlier_param1: 0.3
+# Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence
+# (probability) that the estimated matrix is correct.
+outlier_param2: 0.99
+# 1 <=> no tiling
+n_tiles_h: 3 # 3 INV AROUND same for PARALLEL
+n_tiles_w: 3 # 3 INV AROUND same for PARALLEL
+max_feat_per_tile: 10000
+
+##############
+# SLAM-MSCKF #
+##############
+
+# Number of poses in the sliding window
+n_poses_max: 15
+
+# Number of SLAM features
+n_slam_features_max: 15
+
+# Initial inverse depth of SLAM features [1/m]
+# (default: 1 / (2 * d_min) [Montiel, 2006])
+# rho_0: 0.25 # CIRCLE LOW START
+# rho_0: 0.043751393601 # INVERARAY SPARSE
+# rho_0: 0.0303825167012 # INVERARAY PARALLEL
+# rho_0: 0.371576345786 # Mars Sol 180
+rho_0: 0.1 # INVERARAY AROUND
+
+# Initial standard deviation of SLAM inverse depth [1/m]
+# (default: 1 / (4 * d_min) [Montiel, 2006])
+# sigma_rho_0: 0.125 # CIRCLE LOW START
+# sigma_rho_0: 0.021875697 # INVERARAY SPARSE
+# sigma_rho_0: 0.015191258 # INVERARAY PARALLEL
+# sigma_rho_0: 0.185788173 # Mars Sol 180
+sigma_rho_0: 0.05 # INVERARAY AROUND
+
+# Number of IEKF iterations (1 <=> EKF)
+iekf_iter: 1
+
+# Minimum baseline to trigger MSCKF measurement (pixels)
+msckf_baseline: 30.0
+
+# Minimum track length for a visual feature to be processed
+min_track_length: 15
+
+
+########################
+# MULTI UAV PARAMETERS #
+########################
+pr_desc_ratio_thr: 0.75
+pr_desc_min_distance: 50.0
+desc_type: 0 # DESCRIPTOR_TYPE { ORB=0 };
+
+sigma_landmark: 0.02 # meters
+descriptor_scale_factor: 1.2
+descriptor_pyramid: 8
+descriptor_patch_size: 51
+pr_score_thr: 0.65
+
+ci_msckf_w: 0.015 # INV PARALLEL # Covariance intersection weight of the other UAVs. if < 0 it's going to perform the optimization problem. 
+ci_slam_w: 0.05 # INV PARALLEL # Covariance intersection weight of the other UAVs. if < 0 it's going to perform the optimization problem.
+
+# BoW ORB vocabulary
+# vocabulary_path: '/home/viciopoli/JPL/devel/x_ws/src/x/Vocabulary/orb_thermal_voc.fbow' #  Thermal voc must be a fbow
+vocabulary_path: '/home/viciopoli/JPL/devel/x_ws/src/x/Vocabulary/visual_voc_3_4_dbow3.yaml' # 
+# vocabulary_path: '/code/catkin_ws/src/x-image/packages/x/Vocabulary/orb_mur.fbow' # this must be a .tar.gz file
+
+########
+# Misc #
+########
+
+# Gravity vector in world frame [m/s^2]
+g: [0.0, 0.0, -9.81] # [x,y,z]
+
+# state buffer size
+state_buffer_size: 250
+
+# Timeout before 3D trajectory disappears in GUI (s)
+traj_timeout_gui: 3
+
+# flags to play rosbags
+/use_sim_time: True
+
+# Initialize at startup
+init_at_startup: True
