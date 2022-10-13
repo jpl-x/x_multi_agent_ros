@@ -13,6 +13,27 @@ The ROS wrapper for collaborative multi sensors odometry using a hybrid SLAM-MSC
 See the [xWiki](https://github.com/jpl-x/x/wiki) for more information
 about [x_vio_ros](https://github.com/jpl-x/x/wiki/xvio-ros).
 
+This is the code for the paper **Data-Efficient Collaborative Decentralized Thermal-Inertial Odometry**
+([PDF](https://rpg.ifi.uzh.ch/docs/RAL22_Polizzi.pdf)) by [Vincenzo Polizzi](https://github.com/viciopoli01/)
+, [Robert Hewitt](https://github.com/neorobo), [Javier Hidalgo-Carrió](https://github.com/jhidalgocarrio)
+, [Jeff Delaune](https://github.com/jeff-delaune) and [Davide Scaramuzza](http://rpg.ifi.uzh.ch/people_scaramuzza.html).
+For an overview of our method, check out our [webpage](https://rpg.ifi.uzh.ch/xctio.html).
+
+If you use any of this code, please cite the following publication:
+
+```bibtex
+@ARTICLE{Polizzi22RAL,
+  author={Polizzi, Vincenzo and Hewitt, Robert and Hidalgo-Carrió, Javier and Delaune, Jeff and Scaramuzza, Davide},
+  journal={IEEE Robotics and Automation Letters},   
+  title={Data-Efficient Collaborative Decentralized Thermal-Inertial Odometry},   
+  year={2022},  
+  volume={7},  
+  number={4},  
+  pages={10681-10688},  
+  doi={10.1109/LRA.2022.3194675}
+}
+```
+
 ## Usage
 
 ### Requirements
