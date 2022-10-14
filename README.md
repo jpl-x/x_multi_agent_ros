@@ -94,7 +94,7 @@ $ roscd x_vio_ros/scripts/ && ./load_gui_duo.sh
 
 ### Datasets
 
-Download the bag files from [COMING SOON]().
+Download the bag files from [here](https://rpg.ifi.uzh.ch/xctio.html).
 
 - Run the thermal dataset.
 
