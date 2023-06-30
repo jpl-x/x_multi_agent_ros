@@ -19,11 +19,11 @@ option(TIMING "Publish timing information" OFF) # Set ON to enable timers
 option(PROFILING "Enable profiling flags" OFF) # Set ON to disable compiler flags which are not
 		      # compatible with Callgrind profiling tool.
 
-option(PHOTOMETRIC_CALI "Enable photometric calibration for thermal images" ON) # Set to ON to enable photometric calibration as in https://arxiv.org/abs/2012.14292
+option(PHOTOMETRIC_CALI "Enable photometric calibration for thermal images" OFF) # Set to ON to enable photometric calibration as in https://arxiv.org/abs/2012.14292
 
-option(MULTI_UAV "Enable multi-UAV collaboration" ON) # Set to ON to enable Multi UAV system
+option(MULTI_UAV "Enable multi-UAV collaboration" OFF) # Set to ON to enable Multi UAV system
 
-option(REQUEST_COMM "Enable request-response communication pipeline" ON) # Set to ON if you want to enable the request protocol for the communication
+option(REQUEST_COMM "Enable request-response communication pipeline" OFF) # Set to ON if you want to enable the request protocol for the communication
 
 option(GT_DEBUG "Expect landmarks position ground truth as input" OFF) # Set to ON for using the ground truth matches for multi UAV
 
@@ -127,7 +127,7 @@ find_package( Boost COMPONENTS log thread system filesystem container REQUIRED )
 set(NLopt_DIR /home/viciopoli/InstalledLibs/nlopt/lib/cmake/nlopt)
 set(Ceres_DIR /home/viciopoli/InstalledLibs/Ceres/lib/cmake/Ceres)
 
-find_package(x 1.2.3 REQUIRED)
+find_package(x 1.2.4 REQUIRED)
 if(x_FOUND)
   message("x found: ${x_VERSION}")
 endif()

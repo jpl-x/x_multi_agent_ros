@@ -21,6 +21,7 @@
 #include <chrono>
 #include <optional>
 #include <utility>
+#include <x/camera_models/camera.h>
 
 using namespace x;
 
@@ -145,15 +146,24 @@ void Node::loadParamsWithHandle(const ros::NodeHandle &nh) {
         ROS_ERROR("Initial state parameters are missing!");
     }
     // Import camera calibration or kill xVIO.
-    vio_lives = vio_lives && nh.getParam("x_vio/cam1_fx", params_.cam_fx);
-    vio_lives = vio_lives && nh.getParam("x_vio/cam1_fy", params_.cam_fy);
-    vio_lives = vio_lives && nh.getParam("x_vio/cam1_cx", params_.cam_cx);
-    vio_lives = vio_lives && nh.getParam("x_vio/cam1_cy", params_.cam_cy);
-    vio_lives = vio_lives && nh.getParam("x_vio/cam1_s", params_.cam_s);
+    double cam_fx, cam_fy, cam_cx, cam_cy, img_height, img_width;
+    std::vector<double> dist_coeffs;
+    std::string distortion_model;
+
+    vio_lives = vio_lives && nh.getParam("x_vio/cam1_fx", cam_fx);
+    vio_lives = vio_lives && nh.getParam("x_vio/cam1_fy", cam_fy);
+    vio_lives = vio_lives && nh.getParam("x_vio/cam1_cx", cam_cx);
+    vio_lives = vio_lives && nh.getParam("x_vio/cam1_cy", cam_cy);
+    vio_lives = vio_lives && nh.getParam("x_vio/cam1_dist", dist_coeffs);
+    vio_lives = vio_lives && nh.getParam("x_vio/cam1_distortion_model", distortion_model);
     vio_lives =
-            vio_lives && nh.getParam("x_vio/cam1_img_height", params_.img_height);
+            vio_lives && nh.getParam("x_vio/cam1_img_height", img_height);
     vio_lives =
-            vio_lives && nh.getParam("x_vio/cam1_img_width", params_.img_width);
+            vio_lives && nh.getParam("x_vio/cam1_img_width", img_width);
+
+    x::Camera::Params camera_params(cam_fx, cam_fy, cam_cx, cam_cy, dist_coeffs, img_width, img_height, distortion_model);
+    params_.camera = x::Camera::constructCamera(camera_params);
+
     vio_lives = vio_lives && nh.getParam("x_vio/cam1_p_ic", p_ic);
     vio_lives = vio_lives && nh.getParam("x_vio/cam1_q_ic", q_ic);
     vio_lives =
@@ -562,7 +572,7 @@ void Node::processVision() {
                                           // Increment seq ID
                                           ++seq_;
 
-                                          static cv::Mat cv_match_img(params_.img_height, params_.img_width, CV_8UC1,
+                                          static cv::Mat cv_match_img(params_.camera->getHeight(), params_.camera->getWidth(), CV_8UC1,
                                                                       cv::Scalar(0));
 
                                           const auto timestamp = matches_ptr_->data[4];
@@ -814,10 +824,10 @@ void Node::processOther() {
 
 #ifdef GD_DEBUG
                 // create a black image for storing the matches
-                cv::Mat other_image_(params_.img_height, params_.img_width, CV_8UC1,
+                cv::Mat other_image_(params_.camera->getHeight(), params_.camera->getWidth(), CV_8UC1,
                                      cv::Scalar(0));
 #endif
-                cv::Mat other_image_(params_.img_height, params_.img_width, CV_8UC1,
+                cv::Mat other_image_(params_.camera->getHeight(), params_.camera->getWidth(), CV_8UC1,
                                      cv::Scalar(0));
                 // Process the received data.
                 // TODO: do this in a separate thread.

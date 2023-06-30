@@ -43,11 +43,12 @@ sigma_dba: [0.3, 0.3, 0.3] # [m/s^2]
 ###############
  
 # Camera calibration for myBags/20160426 bags
+cam1_distortion_model: "FOV"
 cam1_fx: 0.577085453947302
 cam1_fy: 0.721472436786731
 cam1_cx: 0.516956707113531
 cam1_cy: 0.504461764661648
-cam1_s: 1.030435318352822
+cam1_dist: [1.030435318352822]
 cam1_img_width: 640
 cam1_img_height: 512
 cam1_q_ic: [
@@ -58,22 +59,7 @@ cam1_q_ic: [
  ] # [w,x,y,z]
 cam1_p_ic: [0.10504305, 0.00284928, -0.059877417] # [x,y,z]
 cam1_time_offset: -0.03281367231868547 # -0.00397400522578
- 
-cam2_fx: 0.46513
-cam2_fy: 0.726246
-cam2_cx: 0.499822
-cam2_cy: 0.458086
-cam2_s: 0.950711
-cam2_img_width: 752
-cam2_img_height: 480
-cam2_q_ic: [
-   -0.004059133072894,
-   0.928890463133302,
-   0.370065735566358,
-   -0.014049352983967,
- ] # [w,x,y,z]
-cam2_p_ic: [-0.05914814, 0.04309647, -0.03085167] # [x,y,z]
-cam2_time_offset: -0.00397400522578
+
  
 # Feature noise (normalized coordinate standard deviation)
 # 8.75/(cam_1fx)/cam1_img_width
