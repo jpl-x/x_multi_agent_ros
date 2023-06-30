@@ -54,11 +54,12 @@ sigma_dba: [0.3, 0.3, 0.3] # [m/s^2]
 ###############
  
 # Camera calibration for myBags/20160426 bags
+cam1_distortion_model: "FOV"
 cam1_fx: 0.577085453947302
 cam1_fy: 0.721472436786731
 cam1_cx: 0.516956707113531
 cam1_cy: 0.504461764661648
-cam1_s: 1.030435318352822
+cam1_dist: [1.030435318352822]
 cam1_img_width: 640
 cam1_img_height: 512
 cam1_q_ic: [

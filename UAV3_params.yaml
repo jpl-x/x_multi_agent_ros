@@ -29,11 +29,13 @@ sigma_dba: [0.3, 0.3, 0.3] # [m/s^2]
 
 # VI Simulator
 
+cam1_distortion_model: "FOV"
+cam1_distortion_model: "FOV"
 cam1_fx: 0.605053191
 cam1_fy: 0.947916667
 cam1_cx: 0.5000
 cam1_cy: 0.5000
-cam1_s:  0.0
+cam1_dist:  [0.0]
 cam1_img_width: 752
 cam1_img_height: 480
 cam1_q_ic: [0.004059133072894, -0.928890463133302, -0.370065735566358, 0.014049352983967] # [w,x,y,z]
